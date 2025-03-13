@@ -1,12 +1,9 @@
 {
-  "homepage": "https://danhcoding.github.io/pfetch",
   "name": "my-next-app",
   "version": "0.1.0",
   "private": true,
   "scripts": {
     "dev": "next dev",
-    "predeploy": "next build",
-    "deploy": "gh-pages -d build",
     "build": "next build",
     "start": "next start",
     "lint": "next lint"
