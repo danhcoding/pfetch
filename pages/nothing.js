@@ -8,6 +8,7 @@ export default function Home() {
   const [data, setData] = useState([]);
   const [env, setEnv] = useState();
   const [texts, setTexts] = useState([]);
+  const [qParam, setQParam] = useState();
 
 
   // '' for all
@@ -20,15 +21,31 @@ export default function Home() {
     'no': '',
   };
 
+  const searchHandler = async () => {
+    const param = header.reduce((acc, value, index) => {
+      acc[value] = texts[index];
+      return acc;
+    }, {});
+
+    try {
+      const reData = await axios.get('/api/sheet', { params: dataQueryParams });
+      if (reData?.data)
+        setData(reData.data);
+    } catch (error) {
+      console.error("Error fetching data:", error);
+    }
+
+  }
+
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const reData = await axios.get('/api/sheet', { params: dataQueryParams });
-        const reHeader = await axios.get('/api/header');
+        // const reData = await axios.get('/api/sheet', { params: dataQueryParams });
         const reEnv = await axios.get('/api/env', { params: envQueryParams });
+        const reHeader = await axios.get('/api/header');
 
-        if (reData?.data)
-          setData(reData.data);
+        // if (reData?.data)
+        //   setData(reData.data);
 
         if (reHeader?.data)
           setHeader(reHeader.data);
@@ -59,18 +76,20 @@ export default function Home() {
                 <EditableDropdown options={env[x]}
                   label={x}
                   onChange={(value) => {
-                    texts[index] = value;
-                    setTexts(texts);
-                    console.log(texts[index]);
-                  }} userInput={texts} index={index}/>
+                    const newTexts = [...texts];
+                    newTexts[index] = value;
+                    setTexts(newTexts);
+                    console.log(value);
+                  }} userInput={texts} index={index} />
               </span>
             </div>
           })
         }
       </div>
 
-
-      <button style={{ justifySelf: 'center', marginTop: '10px', fontSize: '18px' }}>Search</button>
+      <button style={{ justifySelf: 'center', marginTop: '10px', fontSize: '18px' }}
+        onClick={searchHandler}
+      >Search</button>
     </div>
 
   );
