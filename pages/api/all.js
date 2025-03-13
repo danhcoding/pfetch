@@ -13,7 +13,6 @@ export default async function getAll(req, res) {
       return Object.entries(query).some(([key, value]) => !value || row.get(key) === value);
     });    
 
-
     // Collect data into a single object using reduce
     const data = filteredRows.reduce((acc, row) => {
       headers.forEach((header, index) => {
