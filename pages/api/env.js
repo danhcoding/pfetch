@@ -5,7 +5,7 @@ export default async function getEnv(req, res) {
   const query = req.query;
   try {
     await doc.loadInfo();
-    const sheet = doc.sheetsByIndex[1];
+    const sheet = doc.sheetsByIndex[0];
     const rows = await sheet.getRows();
     const headers = sheet.headerValues;
 
