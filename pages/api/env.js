@@ -5,37 +5,27 @@ export default async function getEnv(req, res) {
   const query = req.query;
   try {
     await doc.loadInfo();
-    const sheet = doc.sheetsByIndex[0];
+    const sheet = doc.sheetsByIndex[1];
     const rows = await sheet.getRows();
     const headers = sheet.headerValues;
-
-    // rows[0].set(id, Number(rows[0].get(id)) + 1);
-    // await rows[0].save().then(re => res.status(200).json({ sucess: 'ok'}));
-
-    // const z = rows[0].get("Google Account");
-    // Filter rows based on dynamic query parameters
-    // Filter rows based on dynamic query parameters
-
-    // const filteredRows = rows.filter(row => {
-    //   return Object.entries(query).every(([key, value]) => !value || row.get(key) === value);
-    // });
 
     const filteredRows = rows.filter(row => {
       return Object.entries(query).some(([key, value]) => !value || row.get(key) === value);
     });    
 
-    // if (filteredRows.length === 0) {
-    //   return res.status(404).json({ error: 'No matching rows found' });
-    // }
 
-    const data = filteredRows.map(row => {
-      const rowObject = {};
+    // Collect data into a single object using reduce
+    const data = filteredRows.reduce((acc, row) => {
       headers.forEach((header, index) => {
-        rowObject[header] = row._rawData[index];
+        if (!acc[header]) {
+          acc[header] = [];
+        }
+        if (row._rawData[index])
+          acc[header].push(row._rawData[index]);
       });
-      return rowObject;
-    });
-    
+      return acc;
+    }, {});
+
     res.status(200).json(data);
   } catch (error) {
     console.error("Error fetching sheet data:", error);
