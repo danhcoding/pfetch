@@ -1,6 +1,6 @@
 import React, { useState, useRef, useEffect } from 'react';
 
-function EditableDropdown({ options, label, onChange, userInput }) {
+function EditableDropdown({ options, label, onChange, userInput, index }) {
   const [showDropdown, setShowDropdown] = useState(false);
   const dropdownRef = useRef(null);
 
@@ -44,7 +44,7 @@ function EditableDropdown({ options, label, onChange, userInput }) {
       <label style={{ marginRight: '3px' }}>{label}</label>
       <input
         type="text"
-        value={userInput}
+        value={userInput[index]}
         onChange={handleInputChange}
         onFocus={handleFocus}
         onBlur={handleBlur}

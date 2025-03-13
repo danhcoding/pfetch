@@ -62,7 +62,7 @@ export default function Home() {
                     texts[index] = value;
                     setTexts(texts);
                     console.log(texts[index]);
-                  }} userInput={texts[index]}/>
+                  }} userInput={texts} index={index}/>
               </span>
             </div>
           })
