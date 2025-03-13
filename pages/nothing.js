@@ -1,3 +1,4 @@
+import DataTable from '@/app/datatable';
 import EditableDropdown from '@/app/editableDropdown';
 import axios from 'axios';
 import { useEffect, useState } from 'react';
@@ -90,7 +91,9 @@ export default function Home() {
       <button style={{ justifySelf: 'center', marginTop: '10px', fontSize: '18px', cursor:'pointer' }}
         onClick={searchHandler}
       >Search</button>
-      <pre>{JSON.stringify(data, null, 2)}</pre>
+      <DataTable data={data}/>
+      {/* <pre>{JSON.stringify(data, null, 2)}</pre> */}
+      
     </div>
 
   );
