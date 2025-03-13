@@ -28,7 +28,7 @@ export default function Home() {
     }, {});
 
     try {
-      const reData = await axios.get('/api/sheet', { params: dataQueryParams });
+      const reData = await axios.get('/api/sheet', { params: param });
       if (reData?.data)
         setData(reData.data);
     } catch (error) {
@@ -87,9 +87,10 @@ export default function Home() {
         }
       </div>
 
-      <button style={{ justifySelf: 'center', marginTop: '10px', fontSize: '18px' }}
+      <button style={{ justifySelf: 'center', marginTop: '10px', fontSize: '18px', cursor:'pointer' }}
         onClick={searchHandler}
       >Search</button>
+      <pre>{JSON.stringify(data, null, 2)}</pre>
     </div>
 
   );
