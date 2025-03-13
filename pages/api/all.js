@@ -1,7 +1,7 @@
 'use server';
 import { doc } from '../../services/google-sheetspread';
 
-export default async function getEnv(req, res) {
+export default async function getAll(req, res) {
   const query = req.query;
   try {
     await doc.loadInfo();
@@ -26,7 +26,7 @@ export default async function getEnv(req, res) {
       return acc;
     }, {});
 
-    res.status(200).json(data);
+    res.status(200).json({headers: headers, env: data});
   } catch (error) {
     console.error("Error fetching sheet data:", error);
     res.status(500).json({ error: error.message });

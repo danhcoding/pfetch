@@ -5,9 +5,8 @@ import { useEffect, useState } from 'react';
 
 export default function Home() {
 
-  const [header, setHeader] = useState([]);
   const [data, setData] = useState([]);
-  const [env, setEnv] = useState();
+  const [all, setAll] = useState();
   const [texts, setTexts] = useState([]);
   const [qParam, setQParam] = useState();
 
@@ -43,18 +42,9 @@ export default function Home() {
 
       // const reData = await axios.get('/api/sheet', { params: dataQueryParams });
       try {
-        const reEnv = await axios.get('/api/env', { params: envQueryParams });
-        if (reEnv?.data)
-          setEnv(reEnv.data);
-      }
-      catch (error) {
-        console.error("Error fetching data:", error);
-      }
-
-      try {
-        const reHeader = await axios.get('/api/header');
-        if (reHeader?.data)
-          setHeader(reHeader.data);
+        const reAll = await axios.get('/api/all', { params: envQueryParams });
+        if (reAll?.data)
+          setAll(reAll.data);
       }
       catch (error) {
         console.error("Error fetching data:", error);
@@ -67,15 +57,15 @@ export default function Home() {
 
   return (
     <div style={{ margin: '1rem', display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
-      {/* <pre>{JSON.stringify(env, null, 2)}</pre> */}
+      {/* <pre>{JSON.stringify(all, null, 2)}</pre> */}
       <div>
         {
-          header?.map((x, index) => {
+          all?.headers?.map((x, index) => {
             return <div key={index} style={{ display: 'inline-flex', marginRight: '15px', fontSize: '15px' }}>
               <span style={{ marginBottom: '5px', justifyContent: 'space-between' }}>
                 {/* <label style={{ marginRight: '3px' }}>{x}</label> */}
                 {/* <input /> */}
-                <EditableDropdown options={env[x]}
+                <EditableDropdown options={all?.env[x]}
                   label={x}
                   onChange={(value) => {
                     const newTexts = [...texts];
