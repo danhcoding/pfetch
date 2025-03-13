@@ -40,25 +40,26 @@ export default function Home() {
 
   useEffect(() => {
     const fetchData = async () => {
+
+      // const reData = await axios.get('/api/sheet', { params: dataQueryParams });
       try {
-        // const reData = await axios.get('/api/sheet', { params: dataQueryParams });
         const reEnv = await axios.get('/api/env', { params: envQueryParams });
-        const reHeader = await axios.get('/api/header');
-
-        // if (reData?.data)
-        //   setData(reData.data);
-
-        if (reHeader?.data)
-          setHeader(reHeader.data);
-
         if (reEnv?.data)
           setEnv(reEnv.data);
-
-        // console.log(data);
-        // setData(reHeader.data);
-      } catch (error) {
+      }
+      catch (error) {
         console.error("Error fetching data:", error);
       }
+
+      try {
+        const reHeader = await axios.get('/api/header');
+        if (reHeader?.data)
+          setHeader(reHeader.data);
+      }
+      catch (error) {
+        console.error("Error fetching data:", error);
+      }
+
     };
 
     fetchData();
@@ -88,11 +89,11 @@ export default function Home() {
         }
       </div>
 
-      <button style={{ justifySelf: 'center', marginTop: '10px', fontSize: '18px', cursor:'pointer' }}
+      <button style={{ justifySelf: 'center', marginTop: '10px', fontSize: '18px', cursor: 'pointer' }}
         onClick={searchHandler}
       >Search</button>
-      <br/>
-      <DataTable data={data}/>
+      <br />
+      <DataTable data={data} />
       {/* <pre>{JSON.stringify(data, null, 2)}</pre> */}
 
     </div>
