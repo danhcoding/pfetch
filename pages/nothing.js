@@ -22,7 +22,7 @@ export default function Home() {
   };
 
   const searchHandler = async () => {
-    const param = header.reduce((acc, value, index) => {
+    const param = all?.headers?.reduce((acc, value, index) => {
       acc[value] = texts[index];
       return acc;
     }, {});
