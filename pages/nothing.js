@@ -91,9 +91,10 @@ export default function Home() {
       <button style={{ justifySelf: 'center', marginTop: '10px', fontSize: '18px', cursor:'pointer' }}
         onClick={searchHandler}
       >Search</button>
+      <br/>
       <DataTable data={data}/>
       {/* <pre>{JSON.stringify(data, null, 2)}</pre> */}
-      
+
     </div>
 
   );

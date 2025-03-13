@@ -40,15 +40,15 @@ function EditableDropdown({ options, label, onChange, userInput, index }) {
   }, []);
 
   return (
-    <div style={{ margin: '1rem', position: 'relative', display: 'inline-block' }} ref={dropdownRef}>
-      <label style={{ marginRight: '3px' }}>{label}</label>
+    <div style={{ position: 'relative', display: 'inline-block' }} ref={dropdownRef}>
+      <label style={{ marginRight: '2px' }}>{label}</label>
       <input
         type="text"
         value={userInput[index]}
         onChange={handleInputChange}
         onFocus={handleFocus}
         onBlur={handleBlur}
-        style={{ marginRight: '15px' }}
+        style={{ marginRight: '3px' }}
       />
       {showDropdown && options && (
         <ul className="dropdown" style={{ position: 'absolute', zIndex: 1, backgroundColor: 'white', border: '1px solid #ccc', listStyleType: 'none', padding: 0, margin: 0, width: '100%' }}>
