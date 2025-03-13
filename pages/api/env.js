@@ -1,7 +1,7 @@
 'use server';
 import { doc } from '../../services/google-sheetspread';
 
-export default async function fitlerData(req, res) {
+export default async function getEnv(req, res) {
   const query = req.query;
   try {
     await doc.loadInfo();

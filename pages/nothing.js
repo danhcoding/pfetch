@@ -4,16 +4,18 @@ import { useEffect, useState } from 'react';
 export default function Home() {
   const [data, setData] = useState([]);
   const queryParams = {
-    'no': '',
-    'googleAccount': 'ngdanhezcom'
+    'no': '2',
+    'googleAccount': null
   };
 
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const result = await axios.get('/api/sheet', { params: queryParams });
-        console.log(result.data);
-        setData(result.data);
+        const reData = await axios.get('/api/sheet', { params: queryParams });
+        const reHeader = await axios.get('/api/header');
+
+        console.log(reHeader.data);
+        setData(reHeader.data);
       } catch (error) {
         console.error("Error fetching data:", error);
       }
