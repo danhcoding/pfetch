@@ -24,10 +24,6 @@ export default async function fitlerData(req, res) {
       return Object.entries(query).some(([key, value]) => !value || row.get(key) === value);
     });    
 
-    // if (filteredRows.length === 0) {
-    //   return res.status(404).json({ error: 'No matching rows found' });
-    // }
-
     const data = filteredRows.map(row => {
       const rowObject = {};
       headers.forEach((header, index) => {
