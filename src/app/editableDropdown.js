@@ -6,7 +6,10 @@ function EditableDropdown({ options, label, onChange, userInput, index }) {
 
   const handleInputChange = (e) => {
     if (onChange) {
-      onChange(e.target.value);
+      let inputValue = e.target.value;
+      if (e.target.value === '')
+        inputValue = null;
+      onChange(inputValue);
     }
   };
 
