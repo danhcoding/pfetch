@@ -26,6 +26,7 @@ export default async function getAll(req, res) {
     }, {});
 
     res.status(200).json({ headers: headers, env: data });
+    
   } catch (error) {
     console.error("Error fetching sheet data:", error);
     res.status(500).json({ error: error.message });
