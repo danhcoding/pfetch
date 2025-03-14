@@ -19,14 +19,17 @@ export default async function getAll(req, res) {
         if (!acc[header]) {
           acc[header] = [];
         }
-        if (row._rawData[index])
-          acc[header].push(row._rawData[index]);
+        if (row._rawData[index]) {
+          if (!acc[header].includes(row._rawData[index])) {
+            acc[header].push(row._rawData[index]);
+          }
+        }
       });
       return acc;
-    }, {});
+    }, {});    
 
     res.status(200).json({ headers: headers, env: data });
-    
+
   } catch (error) {
     console.error("Error fetching sheet data:", error);
     res.status(500).json({ error: error.message });
