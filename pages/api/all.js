@@ -10,7 +10,7 @@ export default async function getAll(req, res) {
     const headers = sheet.headerValues;
 
     const filteredRows = rows.filter(row => {
-      return Object.entries(query).some(([key, value]) => !value || row.get(key) === value);
+      return Object.entries(query).some(([key, value]) => !value || row.get(key).includes(value));
     });
 
     // Collect data into a single object using reduce 
