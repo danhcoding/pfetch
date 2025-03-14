@@ -37,6 +37,22 @@ export default function Home() {
 
   }
 
+  const showAllHandler = async () => {
+    const param = all?.headers?.reduce((acc, value, index) => {
+      acc[value] = '';
+      return acc;
+    }, {});
+
+    try {
+      const reData = await axios.get('/api/sheet', { params: param });
+      if (reData?.data)
+        setData(reData.data);
+    } catch (error) {
+      console.error("Error fetching data:", error);
+    }
+
+  }
+
   useEffect(() => {
     const fetchData = async () => {
 
@@ -79,9 +95,16 @@ export default function Home() {
         }
       </div>
 
-      <button style={{ justifySelf: 'center', marginTop: '10px', fontSize: '18px', cursor: 'pointer' }}
-        onClick={searchHandler}
-      >Search</button>
+      <div>
+        <button style={{ justifySelf: 'center', marginTop: '10px', marginRight: '5px', fontSize: '18px', cursor: 'pointer' }}
+          onClick={searchHandler}
+        >Search</button>
+        <button style={{ justifySelf: 'center', marginTop: '10px', fontSize: '18px', cursor: 'pointer' }}
+          onClick={showAllHandler}
+        >Show all</button>
+
+      </div>
+
       <br />
       <DataTable data={data} />
       {/* <pre>{JSON.stringify(data, null, 2)}</pre> */}
